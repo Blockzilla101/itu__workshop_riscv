@@ -10,6 +10,20 @@ module register_file (
     output [31:0] rs1_data,
     output [31:0] rs2_data
 );
+`ifdef ASIC
+    (* keep *)
+    RAM32_1RW1R reg_file (
+        .CLK(clk),
+        .WE0(write_enable),
+        .EN0(1'b1),
+        .EN1(1'b1),
+        .A0 (rs1),
+        .A1 (rs2),
+        .Di0(write_data),
+        .Do0(rs1_data),
+        .Do1(rs2_data)
+    );
+`else
     reg [31:0] registers[0:31];
 
     // initial begin
@@ -25,4 +39,6 @@ module register_file (
 
     assign rs1_data = rs1 == 5'd0 ? 32'b0 : registers[rs1];
     assign rs2_data = rs2 == 5'd0 ? 32'b0 : registers[rs2];
+
+`endif
 endmodule

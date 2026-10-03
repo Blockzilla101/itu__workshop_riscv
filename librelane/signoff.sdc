@@ -22,12 +22,12 @@ create_clock -period $::env(CLOCK_PERIOD) -name sys_clock $clock_port
 set_max_fanout 16 [current_design]
 set_max_transition 1 [current_design]
 
-set_load 0.07 $output_ports
+set_load 0.05 $output_ports
 
-set_input_transition 2.0 $input_ports
-set_input_delay -clock sys_clock 8.0 $input_ports
-set_output_delay -clock sys_clock 8.0 $output_ports
+set_input_transition 4.0 $input_ports
+set_input_delay -clock sys_clock 10.0 $input_ports
+set_output_delay -clock sys_clock 10.0 $output_ports
 
-set_clock_uncertainty .1 $clock_port
+set_clock_uncertainty .07 $clock_port
 
 set_propagated_clock sys_clock
