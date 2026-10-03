@@ -1,5 +1,4 @@
 `include "../include/riscv_def.vh"
-`include "../include/wb_def.vh"
 
 `timescale 1ns / 1ps
 

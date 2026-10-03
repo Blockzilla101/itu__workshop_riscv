@@ -11,7 +11,7 @@ module data_memory (
     input [2:0] funct3,
     output reg [31:0] read_data
 );
-    reg [7:0] memory[`SIZE_DATA_MEM];
+    reg [7:0] memory[`SIZE_DATA_MEM_WORDS * 4];
 
     wire [2:0] width = funct3[1:0];
     wire read_unsigned = funct3[2];

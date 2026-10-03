@@ -8,3 +8,16 @@ VERILOG_FILES:
 
 VERILOG_INCLUDE_DIRS:
 - dir::../rtl/include
+
+DEFAULT_CORNER: nom_ss_100C_1v60
+
+PNR_SDC_FILE: dir::pnr.sdc
+SIGNOFF_SDC_FILE: dir::pnr.sdc
+
+SYNTH_STRATEGY: "DELAY 0"
+SYNTH_SIZING: true
+# SYNTH_AUTONAME: true
+
+FP_SIZING: "absolute"
+CORE_AREA: [ 0, 0, 500, 500 ]
+DIE_AREA: [ 0, 0, 500, 500 ]

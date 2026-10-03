@@ -1,5 +1,2 @@
-`define SIZE_DATA_MEM 4
-`define SIZE_INST_MEM 256
-
-`define SIZE_INST_MEM_ASIC 4
-
+`define SIZE_DATA_MEM_WORDS 1
+`define SIZE_INST_MEM_WORDS 4
