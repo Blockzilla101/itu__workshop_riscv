@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "kennylong.kubernetes-yaml-formatter",
+        "usernamehw.errorlens",
+        "oderwat.indent-rainbow",
+        "technosophos.vscode-make",
+        "be5invis.vscode-icontheme-nomo-dark",
+        "surfer-project.surfer",
+        "mshr-h.veriloghdl",
+        "ms-vscode.makefile-tools"
+    ]
+}
