@@ -1,9 +1,10 @@
-RUN_TAG = core-only
+RUN_TAG = sky130-sram
 TOP = asic_top
 
 PDK = sky130A
 PDK_ROOT = $(HOME)/.ciel
 PDK_COMMIT = 0fe599b2afb6708d281543108caf8310912f54af
+# PDK_COMMIT = 8afc8346a57fe1ab7934ba5a6056ea8b43078e71
 
 RUN_DIR = librelane/runs/$(RUN_TAG)
 
@@ -41,6 +42,11 @@ librelane-gds: $(PDK_ROOT)/$(PDK) ## Run LibreLane (from pdn to gds)
 	$(LIBRELANE) --run-tag $(RUN_TAG).gds --overwrite -i $(RUN_DIR).pdn/*-generatepdn*/state_out.json --from Odb.RemovePDNObstructions --to Klayout.Render
 .PHONY: librelane-gds
 
+librelane-drc: $(PDK_ROOT)/$(PDK) ## Run LibreLane (from pdn to gds)
+	$(LIBRELANE) --run-tag $(RUN_TAG).drc --overwrite -i $(RUN_DIR).gds/*-render*/state_out.json --from Klayout.Render -S Klayout.Render
+.PHONY: librelane-drc
+
+
 librelane: $(PDK_ROOT)/$(PDK) ## Run LibreLane (full)
 	$(LIBRELANE) --run-tag $(RUN_TAG) --overwrite
 .PHONY: librelane
@@ -62,6 +68,6 @@ librelane-gds-openroad: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in openroad)
 .PHONY: librelane
 
 clean:
-	rm -rf librelane/runs
+	rm -rf librelane/runs/$(RUN_TAG)*
 	rm -rf final
 .PHONY: clean

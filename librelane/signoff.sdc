@@ -3,15 +3,11 @@ set clock_port [get_ports clk]
 set reset_port [get_ports rst]
 
 set input_ports [get_ports {
-    rst mem_read_data[*] inst_read[*]
+    rst
 }]
 
 set output_ports [get_ports {
-    mem_addr[*]
-    mem_write_data[*]
-    mem_write_en
-    mem_write_mask[*]
-    inst_addr[*]
+    gpio[*]
 }]
 
 puts "\[INFO] Using clock $clock_port @ $::env(CLOCK_PERIOD) ns"
