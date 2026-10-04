@@ -3,8 +3,8 @@ TOP = asic_top
 
 PDK = sky130A
 PDK_ROOT = $(HOME)/.ciel
-PDK_COMMIT = 0fe599b2afb6708d281543108caf8310912f54af
-# PDK_COMMIT = 8afc8346a57fe1ab7934ba5a6056ea8b43078e71
+# PDK_COMMIT = 0fe599b2afb6708d281543108caf8310912f54af
+PDK_COMMIT = 8afc8346a57fe1ab7934ba5a6056ea8b43078e71
 
 RUN_DIR = librelane/runs/$(RUN_TAG)
 
@@ -48,7 +48,7 @@ librelane-drc: $(PDK_ROOT)/$(PDK) ## Run LibreLane (from pdn to gds)
 
 
 librelane: $(PDK_ROOT)/$(PDK) ## Run LibreLane (full)
-	$(LIBRELANE) --run-tag $(RUN_TAG) --overwrite
+	$(LIBRELANE) --run-tag $(RUN_TAG) --overwrite -S Klayout.Render
 .PHONY: librelane
 
 librelane-klayout: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in klayout)
