@@ -1,9 +1,9 @@
-RUN_TAG = core-only
+RUN_TAG = reg-file
 TOP = asic_top
 
 PDK = sky130A
 PDK_ROOT = $(HOME)/.ciel
-PDK_COMMIT = 0fe599b2afb6708d281543108caf8310912f54af
+PDK_COMMIT = 6d4d11780c40b20ee63cc98e645307a9bf2b2ab8
 STD_CELL_LIBRARY = sky130_fd_sc_hd
 
 RUN_DIR = librelane/runs/$(RUN_TAG)
@@ -64,6 +64,6 @@ librelane-gds-openroad: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in openroad)
 .PHONY: librelane
 
 clean:
-	rm -rf librelane/runs
+	rm -rf librelane/runs/$(RUN_TAG)*
 	rm -rf final
 .PHONY: clean
