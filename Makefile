@@ -4,18 +4,20 @@ TOP = asic_top
 PDK = sky130A
 PDK_ROOT = $(HOME)/.ciel
 PDK_COMMIT = 0fe599b2afb6708d281543108caf8310912f54af
+STD_CELL_LIBRARY = sky130_fd_sc_hd
 
 RUN_DIR = librelane/runs/$(RUN_TAG)
+
 
 LIBRELANE = librelane librelane/config.yaml --pdk ${PDK} --manual-pdk
 
 .DEFAULT_GOAL := help
 
 $(PDK_ROOT)/$(PDK):
-	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT)
+	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT) -l $(STD_CELL_LIBRARY)
 
 dl-pdk: ## Download PDK
-	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT)
+	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT) -l $(STD_CELL_LIBRARY)
 .PHONY: dl-pdk
 
 help: ## Show this help message
