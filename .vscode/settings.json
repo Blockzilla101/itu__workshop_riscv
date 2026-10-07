@@ -33,4 +33,5 @@
         "**/*.{v,vh}",
     ],
     "makefile.configureOnOpen": false,
+    "files.autoSave": "onFocusChange",
 }
