@@ -17,6 +17,7 @@ $(PDK_ROOT)/$(PDK):
 	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT) -l $(STD_CELL_LIBRARY)
 
 dl-pdk: ## Download PDK
+	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT)
 	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT) -l $(STD_CELL_LIBRARY)
 .PHONY: dl-pdk
 
