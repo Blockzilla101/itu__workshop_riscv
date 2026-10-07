@@ -8,15 +8,16 @@ PDK_COMMIT = 8afc8346a57fe1ab7934ba5a6056ea8b43078e71
 
 RUN_DIR = librelane/runs/$(RUN_TAG)
 
+
 LIBRELANE = librelane librelane/config.yaml --pdk ${PDK} --manual-pdk
 
 .DEFAULT_GOAL := help
 
 $(PDK_ROOT)/$(PDK):
-	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT)
+	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT) -l $(STD_CELL_LIBRARY)
 
 dl-pdk: ## Download PDK
-	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT)
+	ciel enable $(PDK_COMMIT) --pdk-family $(PDK) --pdk-root $(PDK_ROOT) -l $(STD_CELL_LIBRARY)
 .PHONY: dl-pdk
 
 help: ## Show this help message
@@ -42,30 +43,33 @@ librelane-gds: $(PDK_ROOT)/$(PDK) ## Run LibreLane (from pdn to gds)
 	$(LIBRELANE) --run-tag $(RUN_TAG).gds --overwrite -i $(RUN_DIR).pdn/*-generatepdn*/state_out.json --from Odb.RemovePDNObstructions --to Klayout.Render
 .PHONY: librelane-gds
 
-librelane-drc: $(PDK_ROOT)/$(PDK) ## Run LibreLane (from pdn to gds)
-	$(LIBRELANE) --run-tag $(RUN_TAG).drc --overwrite -i $(RUN_DIR).gds/*-render*/state_out.json --from Klayout.Render -S Klayout.Render
+librelane-drc: $(PDK_ROOT)/$(PDK) ## Run LibreLane (from gds to drc)
+	$(LIBRELANE) --run-tag $(RUN_TAG).drc --overwrite -i $(RUN_DIR).gds/*-render/state_out.json --from Klayout.Render -S Klayout.Render
 .PHONY: librelane-drc
 
+librelane-gds-klayout: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in klayout)
+	$(LIBRELANE) --run-tag $(RUN_TAG).gds --flow openinklayout
+.PHONY: librelane-gds-klayout
+
+librelane-gds-openroad: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in openroad)
+	$(LIBRELANE) --run-tag $(RUN_TAG).gds --flow openinopenroad
+.PHONY: librelane-gds-openroad
+
+librelane-pdn-openroad: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in openroad)
+	openroad -gui -db librelane/runs/$(RUN_TAG).pdn/final/odb/*.odb
+.PHONY: librelane-pdn-openroad
 
 librelane: $(PDK_ROOT)/$(PDK) ## Run LibreLane (full)
-	$(LIBRELANE) --run-tag $(RUN_TAG) --overwrite -S Klayout.Render
+	$(LIBRELANE) --run-tag $(RUN_TAG) --overwrite
 .PHONY: librelane
 
 librelane-klayout: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in klayout)
 	$(LIBRELANE) --run-tag $(RUN_TAG) --flow openinklayout
-.PHONY: librelane
+.PHONY: librelane-klayout
 
 librelane-openroad: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in openroad)
 	$(LIBRELANE) --run-tag $(RUN_TAG) --flow openinopenroad
-.PHONY: librelane
-
-librelane-gds-klayout: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in klayout)
-	$(LIBRELANE) --run-tag $(RUN_TAG).gds --flow openinklayout
-.PHONY: librelane
-
-librelane-gds-openroad: $(PDK_ROOT)/$(PDK) ## Run LibreLane (open in openroad)
-	$(LIBRELANE) --run-tag $(RUN_TAG).gds --flow openinopenroad
-.PHONY: librelane
+.PHONY: librelane-openroad
 
 clean:
 	rm -rf librelane/runs/$(RUN_TAG)*
