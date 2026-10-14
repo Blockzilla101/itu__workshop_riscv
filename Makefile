@@ -8,8 +8,7 @@ STD_CELL_LIBRARY = sky130_fd_sc_hd
 
 RUN_DIR = librelane/runs/$(RUN_TAG)
 
-
-LIBRELANE = librelane librelane/config.yaml --pdk ${PDK} --manual-pdk
+LIBRELANE = librelane librelane/config.yaml --pdk ${PDK} --pdk-root $(PDK_ROOT) --manual-pdk
 
 .DEFAULT_GOAL := help
 
